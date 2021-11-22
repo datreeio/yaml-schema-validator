@@ -1,31 +1,79 @@
 import { css } from '@emotion/css';
 import React from 'react';
 
+import { selectAppSlice, setYamlManifest, setYamlSchema } from '../redux/appSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUseClasses } from '../utils/createUseClasses';
 
-interface Props {
-  size: number;
-}
+interface Props {}
 
-export function App() {
-  const classes = useClasses({ size: 5 });
+export function App(props: Props) {
+  const classes = useClasses(props);
+  const { yamlSchema, yamlManifest } = useAppSelector(selectAppSlice);
+  const dispatch = useAppDispatch();
+
+  dispatch(setYamlManifest(''));
 
   return (
-    <div className={classes.mainAppContainer}>
-      <div className={classes.innerComponent}>im the inner component</div>
-      Hello Datree
+    <div className={classes.root}>
+      <div className={classes.header}>
+        <h1>YAML Schema Validator</h1>
+      </div>
+      <div className={classes.mainAppContainer}>
+        <div className={classes.textFieldsContainer}>
+          <div className={classes.textFieldContainer}>
+            <span className={classes.textAboveTextField}>YAML Schema</span>
+            <textarea
+              className={classes.textField}
+              value={yamlSchema}
+              onChange={(e) => {
+                dispatch(setYamlSchema(e.target.value));
+              }}
+            />
+          </div>
+          <div className={classes.textFieldContainer}>
+            <span className={classes.textAboveTextField}>Input YAML manifest to test against</span>
+            <textarea
+              className={classes.textField}
+              value={yamlManifest}
+              onChange={(e) => {
+                dispatch(setYamlManifest(e.target.value));
+              }}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-const useClasses = createUseClasses((props: Props) => ({
-  mainAppContainer: css`
-    border: ${props.size}px solid green;
-    background-color: green;
+const useClasses = createUseClasses((_props: Props) => ({
+  root: css``,
+  header: css`
+    padding: 1rem 3rem;
   `,
-  innerComponent: css`
-    background-color: red;
-    opacity: 30%;
+  mainAppContainer: css`
+    margin: 1rem;
+  `,
+  textFieldsContainer: css`
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 60vh;
+  `,
+  textFieldContainer: css`
+    height: 100%;
+    width: 47.5%;
+    display: flex;
+    flex-direction: column;
+  `,
+  textAboveTextField: css`
+    padding: 1rem 1rem 1rem 0;
+  `,
+  textField: css`
+    width: 100%;
+    flex-grow: 1;
   `,
 }));
 
