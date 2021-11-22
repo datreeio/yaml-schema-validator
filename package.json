@@ -5,13 +5,6 @@
   "homepage": "https://datreeio.github.io/yaml-schema-validator",
   "dependencies": {
     "@emotion/css": "^11.5.0",
-    "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.37",
-    "@types/react": "^17.0.36",
-    "@types/react-dom": "^17.0.11",
     "ajv": "^8.8.2",
     "js-yaml": "^4.1.0",
     "react": "^17.0.2",
@@ -20,19 +13,61 @@
     "typescript": "^4.5.2",
     "web-vitals": "^1.1.2"
   },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.37",
+    "@types/react": "^17.0.36",
+    "@types/react-dom": "^17.0.11",
+    "@types/customize-cra": "^1.0.2",
+    "gh-pages": "^3.2.3",
+    "prettier": "^2.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "@emotion/babel-plugin": "^11.3.0",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.1.8"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "build:staging": "env-cmd -f .env.staging npm run build",
+    "test": "react-app-rewired test --watchAll=false",
+    "test:watch": "react-app-rewired test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prettier": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
+    "fix": "npm run prettier && npm run lint:fix"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "simple-import-sort"
+    ],
+    "ignorePatterns": [
+      "build/*"
+    ],
+    "rules": {
+      "prettier/prettier": "warn",
+      "max-len": "off",
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error"
+    }
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "printWidth": 120,
+    "singleQuote": true
   },
   "browserslist": {
     "production": [
@@ -46,7 +81,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "gh-pages": "^3.2.3"
-  }
+  "config-overrides-path": "config-overrides.ts"
 }

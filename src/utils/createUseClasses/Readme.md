@@ -1,13 +1,12 @@
 #example usage:
 
-
     interface Props {
         size: number;
     }
-    
+
     export const App = (props: Props) => {
         const classes = useClasses(props);
-        
+
         return (
             <div className={classes.mainAppContainer}>
                 <div className={classes.innerComponent}>
@@ -17,14 +16,14 @@
             </div>
         );
     };
-    
+
     const useClasses = createUseClasses<Props>((props) => ({
         mainAppContainer: css`
             border: ${props.size}px solid green;
-            background-color: ${theme.palette.error.main};
+            background-color: green;
         `,
         innerComponent: css`
-            background-color: ${theme.palette.error.main};
+            background-color: red;
             opacity: 30%;
         `,
     }));

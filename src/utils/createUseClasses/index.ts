@@ -1,3 +1,3 @@
-import { createUseClasses } from "./createUseClasses";
+import { createUseClasses } from './createUseClasses';
 
 export { createUseClasses };
