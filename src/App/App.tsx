@@ -1,18 +1,18 @@
 import { css } from '@emotion/css';
 import React from 'react';
 
-import { selectAppSlice, setYamlManifest, setYamlSchema } from '../redux/appSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUseClasses } from '../utils/createUseClasses';
+import { selectAppSlice, selectValidationResult, setYamlManifest, setYamlSchema } from './appSlice';
+import { ValidationResult } from './ValidationResult';
 
 interface Props {}
 
 export function App(props: Props) {
   const classes = useClasses(props);
-  const { yamlSchema, yamlManifest } = useAppSelector(selectAppSlice);
   const dispatch = useAppDispatch();
-
-  dispatch(setYamlManifest(''));
+  const { yamlSchema, yamlManifest } = useAppSelector(selectAppSlice);
+  const validationResult = useAppSelector(selectValidationResult);
 
   return (
     <div className={classes.root}>
@@ -42,6 +42,7 @@ export function App(props: Props) {
             />
           </div>
         </div>
+        <ValidationResult validationResult={validationResult} />
       </div>
     </div>
   );

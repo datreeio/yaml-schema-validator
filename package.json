@@ -16,21 +16,22 @@
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.3.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/customize-cra": "^1.0.2",
     "@types/jest": "^26.0.24",
+    "@types/js-yaml": "^4.0.5",
     "@types/node": "^12.20.37",
     "@types/react": "^17.0.36",
     "@types/react-dom": "^17.0.11",
-    "@types/customize-cra": "^1.0.2",
-    "gh-pages": "^3.2.3",
-    "prettier": "^2.4.1",
+    "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "@emotion/babel-plugin": "^11.3.0",
-    "customize-cra": "^1.0.0",
+    "gh-pages": "^3.2.3",
+    "prettier": "^2.4.1",
     "react-app-rewired": "^2.1.8"
   },
   "scripts": {
