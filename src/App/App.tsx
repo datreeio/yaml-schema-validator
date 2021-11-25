@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUseClasses } from '../utils/createUseClasses';
 import { selectAppSlice, selectValidationResult, setYamlManifest, setYamlSchema } from './appSlice';
 import { ValidationResult } from './ValidationResult';
+import { YamlEditor } from './YamlEditor';
 
 interface Props {}
 
@@ -14,6 +15,13 @@ export function App(props: Props) {
   const { yamlSchema, yamlManifest } = useAppSelector(selectAppSlice);
   const validationResult = useAppSelector(selectValidationResult);
 
+  const dispatchYamlSchemaValue = (newValue: string): void => {
+    dispatch(setYamlSchema(newValue));
+  };
+  const dispatchYamlManifestValue = (newValue: string): void => {
+    dispatch(setYamlManifest(newValue));
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>
@@ -22,24 +30,28 @@ export function App(props: Props) {
       <div className={classes.mainAppContainer}>
         <div className={classes.textFieldsContainer}>
           <div className={classes.textFieldContainer}>
-            <span className={classes.textAboveTextField}>YAML Schema</span>
-            <textarea
-              className={classes.textField}
-              value={yamlSchema}
-              onChange={(e) => {
-                dispatch(setYamlSchema(e.target.value));
-              }}
-            />
+            <div className={classes.textAboveTextField}>YAML Schema</div>
+            <div className={classes.codeEditorWrapper}>
+              <YamlEditor
+                value={yamlSchema}
+                onBeforeChange={(editor, data, value) => {
+                  dispatchYamlSchemaValue(value);
+                }}
+                setValue={dispatchYamlSchemaValue}
+              />
+            </div>
           </div>
           <div className={classes.textFieldContainer}>
-            <span className={classes.textAboveTextField}>Input YAML manifest to test against</span>
-            <textarea
-              className={classes.textField}
-              value={yamlManifest}
-              onChange={(e) => {
-                dispatch(setYamlManifest(e.target.value));
-              }}
-            />
+            <div className={classes.textAboveTextField}>Input YAML manifest to test against</div>
+            <div className={classes.codeEditorWrapper}>
+              <YamlEditor
+                value={yamlManifest}
+                onBeforeChange={(editor, data, value) => {
+                  dispatchYamlManifestValue(value);
+                }}
+                setValue={dispatchYamlManifestValue}
+              />
+            </div>
           </div>
         </div>
         <ValidationResult validationResult={validationResult} />
@@ -71,9 +83,9 @@ const useClasses = createUseClasses((_props: Props) => ({
   `,
   textAboveTextField: css`
     padding: 1rem 1rem 1rem 0;
+    flex-grow: 0;
   `,
-  textField: css`
-    width: 100%;
+  codeEditorWrapper: css`
     flex-grow: 1;
   `,
 }));

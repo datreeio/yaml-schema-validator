@@ -5,21 +5,28 @@
   "homepage": "https://datreeio.github.io/yaml-schema-validator",
   "dependencies": {
     "@emotion/css": "^11.5.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "@reduxjs/toolkit": "^1.6.2",
     "ajv": "^8.8.2",
+    "codemirror": "^5.64.0",
     "js-yaml": "^4.1.0",
+    "prettier": "^2.4.1",
     "react": "^17.0.2",
+    "react-codemirror2": "^7.2.1",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
     "typescript": "^4.5.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.3.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/codemirror": "^5.60.5",
     "@types/customize-cra": "^1.0.2",
     "@types/jest": "^26.0.24",
     "@types/js-yaml": "^4.0.5",
@@ -31,7 +38,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "gh-pages": "^3.2.3",
-    "prettier": "^2.4.1",
     "react-app-rewired": "^2.1.8"
   },
   "scripts": {

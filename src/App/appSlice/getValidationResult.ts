@@ -1,5 +1,7 @@
 import Ajv, { ValidateFunction } from 'ajv';
 import yaml from 'js-yaml';
+import parserYaml from 'prettier/parser-yaml';
+import prettier from 'prettier/standalone';
 
 import { isObject } from '../../utils/functions';
 import { getErrorMessage } from '../../utils/getErrorMessage';
@@ -79,4 +81,22 @@ function yamlManifestToJsonManifest(yamlManifest: YamlManifest): ObjManifest {
     throw new Error('invalid yaml manifest');
   }
   return json;
+}
+
+export function isYamlValid(value: string): boolean {
+  let isYamlValid = true;
+  try {
+    yaml.load(value);
+  } catch (e) {
+    isYamlValid = false;
+  }
+  return isYamlValid;
+}
+
+export function formatYaml(source: string): string {
+  return prettier.format(source, {
+    parser: 'yaml',
+    plugins: [parserYaml],
+    tabWidth: 2,
+  });
 }
