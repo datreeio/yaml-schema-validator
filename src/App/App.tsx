@@ -3,8 +3,8 @@ import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUseClasses } from '../utils/createUseClasses';
-import { selectAppSlice, selectValidationResult, setYamlManifest, setYamlSchema } from './appSlice';
-import { ValidationResult } from './ValidationResult';
+import { selectAppSlice, selectValidationResult, setYamlInput, setYamlSchema } from './appSlice';
+import { ValidationResult } from './Results/ValidationResult';
 import { YamlEditor } from './YamlEditor';
 
 interface Props {}
@@ -12,14 +12,14 @@ interface Props {}
 export function App(props: Props) {
   const classes = useClasses(props);
   const dispatch = useAppDispatch();
-  const { yamlSchema, yamlManifest } = useAppSelector(selectAppSlice);
+  const { yamlSchema, yamlInput } = useAppSelector(selectAppSlice);
   const validationResult = useAppSelector(selectValidationResult);
 
   const dispatchYamlSchemaValue = (newValue: string): void => {
     dispatch(setYamlSchema(newValue));
   };
-  const dispatchYamlManifestValue = (newValue: string): void => {
-    dispatch(setYamlManifest(newValue));
+  const dispatchYamlInputValue = (newValue: string): void => {
+    dispatch(setYamlInput(newValue));
   };
 
   return (
@@ -42,14 +42,14 @@ export function App(props: Props) {
             </div>
           </div>
           <div className={classes.textFieldContainer}>
-            <div className={classes.textAboveTextField}>Input YAML manifest to test against</div>
+            <div className={classes.textAboveTextField}>Input YAML to test against</div>
             <div className={classes.codeEditorWrapper}>
               <YamlEditor
-                value={yamlManifest}
+                value={yamlInput}
                 onBeforeChange={(editor, data, value) => {
-                  dispatchYamlManifestValue(value);
+                  dispatchYamlInputValue(value);
                 }}
-                setValue={dispatchYamlManifestValue}
+                setValue={dispatchYamlInputValue}
               />
             </div>
           </div>

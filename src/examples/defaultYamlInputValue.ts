@@ -1,4 +1,4 @@
----
+export const defaultYamlInputValue = `---
 apiVersion: apps/v1
 kind: Service
 metadata:
@@ -13,3 +13,4 @@ spec:
       image: nginx:1.14.2
       ports:
         - containerPort: 80
+`;

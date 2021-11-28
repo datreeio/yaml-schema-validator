@@ -1,11 +1,14 @@
+import { defaultYamlInputValue } from '../../examples/defaultYamlInputValue';
+import { defaultYamlSchemaValue } from '../../examples/defaultYamlSchemaValue';
+
 export enum LocalStorageKey {
   yamlSchema = 'yamlSchema',
-  yamlManifest = 'yamlManifest',
+  yamlInput = 'yamlInput',
 }
 
 const localStorageDefaultValues: Record<LocalStorageKey, string> = {
-  [LocalStorageKey.yamlSchema]: '',
-  [LocalStorageKey.yamlManifest]: '',
+  [LocalStorageKey.yamlSchema]: defaultYamlSchemaValue,
+  [LocalStorageKey.yamlInput]: defaultYamlInputValue,
 };
 
 export class LocalStorageService {
