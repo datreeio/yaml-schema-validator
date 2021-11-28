@@ -6,9 +6,9 @@ import prettier from 'prettier/standalone';
 import { isObject } from '../../utils/functions';
 import { getErrorMessage } from '../../utils/getErrorMessage';
 import { compileJsonSchema } from '../services/compileJsonSchema';
-import { ErrorType, ObjManifest, ObjSchema, ValidationResult, YamlManifest, YamlSchema } from './index';
+import { ErrorType, ObjInput, ObjSchema, ValidationResult, YamlInput, YamlSchema } from './index';
 
-export function getValidationResult(yamlSchema: YamlSchema, yamlManifest: YamlManifest): ValidationResult {
+export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput): ValidationResult {
   let jsonSchemaObj: ObjSchema;
   try {
     jsonSchemaObj = yamlToJsonObject(yamlSchema);
@@ -23,15 +23,15 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlManifest: YamlMa
     };
   }
 
-  let jsonManifestObj: ObjManifest;
+  let jsonInputObj: ObjInput;
   try {
-    jsonManifestObj = yamlToJsonObject(yamlManifest);
+    jsonInputObj = yamlToJsonObject(yamlInput);
   } catch (error) {
     return {
       isSuccess: false,
       error: {
-        errorType: ErrorType.yamlManifestToJsonManifest,
-        errorTypeMessage: 'YAML manifest: invalid yaml',
+        errorType: ErrorType.yamlInputToJsonInput,
+        errorTypeMessage: 'YAML input: invalid yaml',
         errorMessage: getErrorMessage(error),
       },
     };
@@ -51,15 +51,15 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlManifest: YamlMa
     };
   }
 
-  if (validate(jsonManifestObj)) {
-    return { isSuccess: true, successMessage: 'manifest PASSES validation against schema' };
+  if (validate(jsonInputObj)) {
+    return { isSuccess: true, successMessage: 'input PASSES validation against schema' };
   } else {
     return {
       isSuccess: false,
       error: {
         errorType: ErrorType.test,
         errors: validate.errors,
-        errorTypeMessage: 'manifest does NOT pass validation against schema',
+        errorTypeMessage: 'input does NOT pass validation against schema',
       },
     };
   }
