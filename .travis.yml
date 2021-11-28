@@ -1,0 +1,33 @@
+dist: trusty
+sudo: false
+language: node_js
+node_js: '14'
+install:
+  - npm ci
+  - pyenv local 3.6
+  - pip install -U pip
+  - pip install --user awscli
+script:
+  - npm run build && npm run test
+deploy: # on merge on main
+  # deploy to production s3 bucket
+  - provider: s3
+    skip_cleanup: true
+    access_key_id: '$AWS_ACCESS_KEY_ID'
+    secret_access_key: '$AWS_SECRET_ACCESS_KEY'
+    bucket: yaml-schema-validator
+    local-dir: build
+    acl: public_read
+    on:
+      branch: main
+  # cloudfront invalidation
+  - provider: script
+    script: scripts/cloudfront.sh E3ESLGBVCM2QFT
+    on:
+      branch: master
+env:
+  global:
+    # AWS_ACCESS_KEY_ID
+    - secure: oa8gX38x/vK4N+UoJVzvQBE6kF89F9Z8e0CDumYmn7EfRO5Xz+mEhwwUqRTku9d50ouyhtzXWHKq+9L4tIMwiRMrUU4gInAJXQq1M2XgDcyF0odR/pKa83tK6E76N7sRkgk9HK74jO4OoI/0YVnGuklUN4zfv3sC2LnIZyYyRjs0bz0W/xiYiOmb4Y0AFqt5CM++FZdx9QJ5vI0AP1aMIvB0Xzh3lnzlYGN7eltz+Ce8OgamaoeLb36FjpM2X0isWuW0o0jkgC9pbzSrmKpZPi5UE+APwcILUbk1J60ost+G1Tc5lEcTy2UIo1zleD8vx8yy+VIFzXQ16oV3K0YUsgjyKiIlUkuoHEkVjerAe/b+f+tc3IwIJujo8GIbvubOTPzdHKLMQHMCEcM7Ui2U6e/EsWg/9coA/flnj7wCT9bgLwnGic22hmLbUR8D4ZFd40M2rdTYh5DMWDBCwJ03F8DUt/pV+Rsa1X6KVH40LXJ0/lxWJwjrPekaEFqDJmOio+Kj+x9IN94cpfUY9cNDswSl+B/NEYZKlpw9ozYg/xVGRxRnN5vxxsZ/FfSgUTj2SMontit13qw6uxWh471oezAvrb+KwJRR1w7a/4dLYEML1HdNozb8chAoZ054vc84P2EXv4jiMzofZdi+sMRm/t2dz7+MTO7LkRhlonk1yP8=
+    # AWS_SECRET_ACCESS_KEY
+    - secure: nyf+dTxir5f5LRoO090NwD/CLZNdLy0/2PAYY++HgSnJHxDbU6xnRg7MpprsvmJgFewxghrD8z2cpX7BDJ24ZQo+k3mq1SS8+wVThW5dI8xsVR+MSKLh31hvSXXhKRIoBDXlh48xMXjjr7TskS0OTGpPX5C2AMskNB+BVT9gH2oPnxE8rSLrk5NAnFSBOMatFWcg2OkSu7sNHFkhZOZSlRzT2LNtENfnRZf6yBseXA/WeR0YeCfD6vLeiLHaBeWOPnBttT9aKU2vnj2FXoVN+VI1PR86j9ZVLmBdNfckijYbstrpgS+VvvxJiDyfT3x9qcqe4zzaGIHiMX/vTJFXSZ75PVhMPBXtqA+A60lGRrXfhgHADZ1qIelKxr/8nNnBkxHBieGY1/7Dtjsb9mJtG2ALTzP6hI1rDQyP2fKNNJ1t5YkBThrI5ge9ttaAaj+jgiZvV+iLY3Mx4xqf2THE4X/yFOB43hvSO+x/+sK2SHmHypZ7RS4b70ez1EffEumWZ2eoWyI2zhQzVvb/fS5ItmdDlqxYhT1D4SHLejevqE4zvvpFWM1hLcYS43T7ugAjEGBocBCdx3r2CfbiyWxPiRUDljewpXwyUOZ58hL01k1qVaMZaKdiKw3hv3vdA1ahVdVzydyKN4vSEahwzlz9pghhJq9s5qSY74/5ZJBOxY8=
