@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import { ValidateFunction } from 'ajv';
 
-import { createUseClasses } from '../utils/createUseClasses';
+import { createUseClasses } from '../../utils/createUseClasses';
 
 interface Props {
   errors: ValidateFunction['errors'];
@@ -19,7 +19,7 @@ export function TestErrors(props: Props) {
       <div className={classes.testErrorsHeader}>{errorsListHeaderText}</div>
       <div>
         {errors?.map((e) => (
-          <div className={classes.testError}>
+          <div className={classes.testError} key={JSON.stringify(e)}>
             <div className={classes.testErrorProperty}>
               <div className={classes.testErrorFieldName}>Message:&nbsp;</div>
               <div>{e.message}</div>

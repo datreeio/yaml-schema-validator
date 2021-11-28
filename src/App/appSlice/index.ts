@@ -2,7 +2,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ValidateFunction } from 'ajv';
 
 import type { RootState } from '../../redux/store';
-import { LocalStorageKey, LocalStorageService } from '../../utils/LocalStorageService';
+import { LocalStorageKey, LocalStorageService } from '../services/LocalStorageService';
 import { getValidationResult } from './getValidationResult';
 
 export type YamlSchema = string;

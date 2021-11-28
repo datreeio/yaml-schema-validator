@@ -4,7 +4,7 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUseClasses } from '../utils/createUseClasses';
 import { selectAppSlice, selectValidationResult, setYamlManifest, setYamlSchema } from './appSlice';
-import { ValidationResult } from './ValidationResult';
+import { ValidationResult } from './Results/ValidationResult';
 import { YamlEditor } from './YamlEditor';
 
 interface Props {}

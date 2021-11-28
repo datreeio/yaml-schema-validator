@@ -1,22 +1,23 @@
-import Ajv, { ValidateFunction } from 'ajv';
+import { ValidateFunction } from 'ajv';
 import yaml from 'js-yaml';
 import parserYaml from 'prettier/parser-yaml';
 import prettier from 'prettier/standalone';
 
 import { isObject } from '../../utils/functions';
 import { getErrorMessage } from '../../utils/getErrorMessage';
+import { compileJsonSchema } from '../services/compileJsonSchema';
 import { ErrorType, ObjManifest, ObjSchema, ValidationResult, YamlManifest, YamlSchema } from './index';
 
 export function getValidationResult(yamlSchema: YamlSchema, yamlManifest: YamlManifest): ValidationResult {
   let jsonSchemaObj: ObjSchema;
   try {
-    jsonSchemaObj = yamlSchemaToJsonSchema(yamlSchema);
+    jsonSchemaObj = yamlToJsonObject(yamlSchema);
   } catch (error) {
     return {
       isSuccess: false,
       error: {
         errorType: ErrorType.yamlSchemaToJson,
-        errorTypeMessage: 'failed to convert yaml schema to json schema',
+        errorTypeMessage: 'YAML schema: invalid yaml',
         errorMessage: getErrorMessage(error),
       },
     };
@@ -24,13 +25,13 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlManifest: YamlMa
 
   let jsonManifestObj: ObjManifest;
   try {
-    jsonManifestObj = yamlManifestToJsonManifest(yamlManifest);
+    jsonManifestObj = yamlToJsonObject(yamlManifest);
   } catch (error) {
     return {
       isSuccess: false,
       error: {
         errorType: ErrorType.yamlManifestToJsonManifest,
-        errorTypeMessage: 'failed to convert yaml manifest to json manifest',
+        errorTypeMessage: 'YAML manifest: invalid yaml',
         errorMessage: getErrorMessage(error),
       },
     };
@@ -38,22 +39,21 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlManifest: YamlMa
 
   let validate: ValidateFunction;
   try {
-    const ajv = new Ajv({ allErrors: true });
-    validate = ajv.compile(jsonSchemaObj);
+    validate = compileJsonSchema(jsonSchemaObj);
   } catch (error) {
     return {
       isSuccess: false,
       error: {
         errorType: ErrorType.jsonToJsonSchema,
-        errorTypeMessage: 'failed to compile json schema',
+        errorTypeMessage: 'YAML schema: invalid json schema',
         errorMessage: getErrorMessage(error),
       },
     };
   }
 
-  const valid = validate(jsonManifestObj);
-
-  if (!valid) {
+  if (validate(jsonManifestObj)) {
+    return { isSuccess: true, successMessage: 'manifest PASSES validation against schema' };
+  } else {
     return {
       isSuccess: false,
       error: {
@@ -62,23 +62,13 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlManifest: YamlMa
         errorTypeMessage: 'manifest does NOT pass validation against schema',
       },
     };
-  } else {
-    return { isSuccess: true, successMessage: 'manifest PASSES validation against schema' };
   }
 }
 
-function yamlSchemaToJsonSchema(yamlSchema: YamlSchema): ObjSchema {
-  const json = yaml.load(yamlSchema);
+function yamlToJsonObject(yamlInput: string): object {
+  const json = yaml.load(yamlInput);
   if (!isObject(json)) {
-    throw new Error('invalid yaml schema');
-  }
-  return json;
-}
-
-function yamlManifestToJsonManifest(yamlManifest: YamlManifest): ObjManifest {
-  const json = yaml.load(yamlManifest);
-  if (!isObject(json)) {
-    throw new Error('invalid yaml manifest');
+    throw new Error('invalid yaml');
   }
   return json;
 }

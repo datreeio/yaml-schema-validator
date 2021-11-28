@@ -1,8 +1,8 @@
 import { css } from '@emotion/css';
 import { Fragment } from 'react';
 
-import { createUseClasses } from '../utils/createUseClasses';
-import { ErrorType, ValidationResult as ValidationResultType } from './appSlice';
+import { createUseClasses } from '../../utils/createUseClasses';
+import { ErrorType, ValidationResult as ValidationResultType } from '../appSlice';
 import { TestErrors } from './TestErrors';
 
 interface Props {
