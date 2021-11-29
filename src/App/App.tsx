@@ -25,7 +25,7 @@ export function App(props: Props) {
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <h1>YAML Schema Validator</h1>
+        <h1>YAML Schema Validator Online</h1>
       </div>
       <div className={classes.mainAppContainer}>
         <div className={classes.textFieldsContainer}>

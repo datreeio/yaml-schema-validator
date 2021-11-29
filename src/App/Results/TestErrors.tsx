@@ -21,12 +21,16 @@ export function TestErrors(props: Props) {
         {errors?.map((e) => (
           <div className={classes.testError} key={JSON.stringify(e)}>
             <div className={classes.testErrorProperty}>
-              <div className={classes.testErrorFieldName}>Message:&nbsp;</div>
+              <div className={classes.testErrorFieldName}>Message:</div>
               <div>{e.message}</div>
             </div>
             <div className={classes.testErrorProperty}>
-              <div className={classes.testErrorFieldName}>Schema path:&nbsp;</div>
+              <div className={classes.testErrorFieldName}>Schema path:</div>
               <div>{e.schemaPath}</div>
+            </div>
+            <div className={classes.testErrorProperty}>
+              <div className={classes.testErrorFieldName}>Instance path:</div>
+              <div>{e.instancePath}</div>
             </div>
           </div>
         ))}

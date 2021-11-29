@@ -10,30 +10,34 @@ export type ObjSchema = object;
 export type YamlInput = string;
 export type ObjInput = object;
 export enum ErrorType {
-  yamlSchemaToJson,
-  jsonToJsonSchema,
-  yamlInputToJsonInput,
+  yamlSchemaToObj,
+  objToJsonSchema,
+  yamlInputToObj,
   test,
 }
-export type ValidationResult =
-  | {
-      isSuccess: true;
-      successMessage: string;
-    }
-  | {
-      isSuccess: false;
-      error:
-        | {
-            errorType: ErrorType.jsonToJsonSchema | ErrorType.yamlSchemaToJson | ErrorType.yamlInputToJsonInput;
-            errorTypeMessage: string;
-            errorMessage: string;
-          }
-        | {
-            errorType: ErrorType.test;
-            errorTypeMessage: string;
-            errors: ValidateFunction['errors'];
-          };
-    };
+
+type ValidationResultSuccess = {
+  isSuccess: true;
+  successMessage: string;
+};
+type ValidationResultFailure = {
+  isSuccess: false;
+  error: {
+    errorType: ErrorType.objToJsonSchema | ErrorType.yamlSchemaToObj | ErrorType.yamlInputToObj;
+    errorTypeMessage: string;
+    errorMessage: string;
+  };
+};
+type ValidationResultTestFailure = {
+  isSuccess: false;
+  error: {
+    errorType: ErrorType.test;
+    errorTypeMessage: string;
+    errors: ValidateFunction['errors'];
+  };
+};
+
+export type ValidationResult = ValidationResultSuccess | ValidationResultFailure | ValidationResultTestFailure;
 
 interface AppState {
   yamlSchema: YamlSchema;
