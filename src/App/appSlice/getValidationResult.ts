@@ -11,27 +11,13 @@ import { ErrorType, ObjInput, ObjSchema, ValidationResult, YamlInput, YamlSchema
 export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput): ValidationResult {
   let jsonSchemaObj: ObjSchema;
   try {
-    jsonSchemaObj = yamlToJsonObject(yamlSchema);
+    jsonSchemaObj = yamlToObject(yamlSchema);
   } catch (error) {
     return {
       isSuccess: false,
       error: {
         errorType: ErrorType.yamlSchemaToObj,
         errorTypeMessage: 'YAML schema: invalid yaml',
-        errorMessage: getErrorMessage(error),
-      },
-    };
-  }
-
-  let jsonInputObj: ObjInput;
-  try {
-    jsonInputObj = yamlToJsonObject(yamlInput);
-  } catch (error) {
-    return {
-      isSuccess: false,
-      error: {
-        errorType: ErrorType.yamlInputToObj,
-        errorTypeMessage: 'YAML input: invalid yaml',
         errorMessage: getErrorMessage(error),
       },
     };
@@ -45,27 +31,41 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput
       isSuccess: false,
       error: {
         errorType: ErrorType.objToJsonSchema,
-        errorTypeMessage: 'YAML schema: invalid json schema',
+        errorTypeMessage: 'YAML schema: invalid yaml schema',
         errorMessage: getErrorMessage(error),
       },
     };
   }
 
-  if (validate(jsonInputObj)) {
-    return { isSuccess: true, successMessage: 'input PASSES validation against schema' };
+  let inputObject: ObjInput;
+  try {
+    inputObject = yamlToObject(yamlInput);
+  } catch (error) {
+    return {
+      isSuccess: false,
+      error: {
+        errorType: ErrorType.yamlInputToObj,
+        errorTypeMessage: 'YAML input: invalid yaml',
+        errorMessage: getErrorMessage(error),
+      },
+    };
+  }
+
+  if (validate(inputObject)) {
+    return { isSuccess: true, successMessage: 'Input PASSES validation against schema' };
   } else {
     return {
       isSuccess: false,
       error: {
         errorType: ErrorType.test,
         errors: validate.errors,
-        errorTypeMessage: 'input does NOT pass validation against schema',
+        errorTypeMessage: 'Input does NOT pass validation against schema',
       },
     };
   }
 }
 
-function yamlToJsonObject(yamlInput: string): object {
+function yamlToObject(yamlInput: string): object {
   const json = yaml.load(yamlInput);
   if (!isObject(json)) {
     throw new Error('invalid yaml');

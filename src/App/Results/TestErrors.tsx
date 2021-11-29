@@ -28,6 +28,10 @@ export function TestErrors(props: Props) {
               <div className={classes.testErrorFieldName}>Schema path:</div>
               <div>{e.schemaPath}</div>
             </div>
+            <div className={classes.testErrorProperty}>
+              <div className={classes.testErrorFieldName}>Instance path:</div>
+              <div>{e.instancePath}</div>
+            </div>
           </div>
         ))}
       </div>
