@@ -9,7 +9,7 @@ install:
   - pip install --user awscli
 script:
   - npm run build && npm run test
-deploy: # on merge on main
+deploy: # on merge to main
   # deploy to production s3 bucket
   - provider: s3
     skip_cleanup: true
