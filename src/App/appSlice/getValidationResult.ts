@@ -16,7 +16,7 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput
     return {
       isSuccess: false,
       error: {
-        errorType: ErrorType.yamlSchemaToJson,
+        errorType: ErrorType.yamlSchemaToObj,
         errorTypeMessage: 'YAML schema: invalid yaml',
         errorMessage: getErrorMessage(error),
       },
@@ -30,7 +30,7 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput
     return {
       isSuccess: false,
       error: {
-        errorType: ErrorType.yamlInputToJsonInput,
+        errorType: ErrorType.yamlInputToObj,
         errorTypeMessage: 'YAML input: invalid yaml',
         errorMessage: getErrorMessage(error),
       },
@@ -44,7 +44,7 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput
     return {
       isSuccess: false,
       error: {
-        errorType: ErrorType.jsonToJsonSchema,
+        errorType: ErrorType.objToJsonSchema,
         errorTypeMessage: 'YAML schema: invalid json schema',
         errorMessage: getErrorMessage(error),
       },
