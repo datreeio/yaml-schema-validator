@@ -16,7 +16,7 @@ export function ValidationResult(props: Props) {
   return (
     <div className={classes.validationResultContainer}>
       {validationResult.isSuccess ? (
-        <span>{validationResult.successMessage}</span>
+        <span className={classes.successMessage}>{validationResult.successMessage}</span>
       ) : (
         <Fragment>
           <div className={classes.errorTypeMessage}>{validationResult.error.errorTypeMessage}</div>
@@ -37,6 +37,9 @@ const useClasses = createUseClasses((props: Props) => ({
   validationResultContainer: css`
     color: ${props.validationResult.isSuccess ? 'green' : 'red'};
     padding: 1rem 1rem;
+  `,
+  successMessage: css`
+    font-weight: bold;
   `,
   errorTypeMessage: css`
     font-weight: bold;
