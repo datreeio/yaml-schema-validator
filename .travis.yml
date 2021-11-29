@@ -24,7 +24,7 @@ deploy: # on merge on main
   - provider: script
     script: scripts/cloudfront.sh E3ESLGBVCM2QFT
     on:
-      branch: master
+      branch: main
 env:
   global:
     # AWS_ACCESS_KEY_ID
