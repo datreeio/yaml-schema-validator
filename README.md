@@ -18,3 +18,4 @@ For reference, here is a list of features & changes we might want to implement i
 - support ctrl+z after applying prettier
 - change or add domains to host the app on
 - SEO improvements
+dsfdsf
