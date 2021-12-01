@@ -1,13 +1,12 @@
 # by deafult
-@datreeio/developers
+*       @datreeio/developers
 
 # specific files
 README.md  @eyarz
 LICENSE.md  @eyarz
 CONTRIBUTING.md  @eyarz
 DEVELOPER_GUIDE.md  @eyarz
-package.json  @eyarz
 
 # specific directories
-public/  @eyarz
+public/img/  @eyarz
 .github/ISSUE_TEMPLATE/  @eyarz
