@@ -1,7 +1,7 @@
 dist: trusty
 sudo: false
 language: node_js
-node_js: '14'
+node_js: '16'
 install:
   - npm ci
   - pyenv local 3.6
