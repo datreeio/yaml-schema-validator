@@ -47,6 +47,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
+    "prebuild": "npm run build:wasm",
     "build": "react-app-rewired build",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "build:wasm": "cd wasm && GOOS=js GOARCH=wasm go build -o ../public/main.wasm && cd ..",

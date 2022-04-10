@@ -19,3 +19,6 @@ For reference, here is a list of features & changes we might want to implement i
 - support ctrl+z after applying prettier
 - change or add domains to host the app on
 - SEO improvements
+
+### When developing (in dev mode)
+Make sure to run ``npm run build:wasm`` after every change to the code in *./wasm*
