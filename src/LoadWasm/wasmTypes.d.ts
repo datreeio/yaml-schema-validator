@@ -1,7 +1,7 @@
 declare global {
   export interface Window {
     Go: any;
-    getHtml: () => string;
+    validate: (yamlSchema: string, inputYaml: string) => string;
   }
 }
 

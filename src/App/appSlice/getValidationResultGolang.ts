@@ -8,7 +8,7 @@ import { getErrorMessage } from '../../utils/getErrorMessage';
 import { compileJsonSchema } from '../services/compileJsonSchema';
 import { ErrorType, ObjInput, ObjSchema, ValidationResult, YamlInput, YamlSchema } from './index';
 
-export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput): ValidationResult {
+export function getValidationResultGolang(yamlSchema: YamlSchema, yamlInput: YamlInput): ValidationResult {
   const result = window.validate(yamlSchema, yamlInput);
 
   console.log(result);
