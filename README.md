@@ -2,6 +2,7 @@
 
 For reference, here is a list of features & changes we might want to implement in the future:  
 (important features & quick wins marked in bold).
+
 - **docs, README.md, CONTRIBUTING.md, GitHub about, GitHub repository image**
 - **favicon & icons in general**
 - **general web page design**
