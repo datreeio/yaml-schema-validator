@@ -92,18 +92,3 @@ const useClasses = createUseClasses((_props: Props) => ({
 }));
 
 export default App;
-
-const schemaContent = `type: object
-properties:
-  kind:
-    type: string
-    enum:
-      - Ingress
-      - Service
-`;
-
-const inputContent = `---
-apiVersion: apps/v1
-kind: Ingress
-metadata: bbaaaaad
-`;
