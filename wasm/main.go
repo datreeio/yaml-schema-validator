@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"syscall/js"
 )
 
@@ -52,7 +51,6 @@ func validate() js.Func {
 			// should never happen
 			panic(err)
 		}
-		panic(errors.New("this is some error"))
 		// return the json as string
 		returnValue = string(jsonResult)
 		return
