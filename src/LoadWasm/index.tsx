@@ -6,16 +6,12 @@ import { CircularProgress } from '@material-ui/core/';
 import React, { useEffect } from 'react';
 
 import { createUseClasses } from '../utils/createUseClasses';
-import { setTimeOutPromise } from '../utils/setTimeOutPromise';
+// import { setTimeOutPromise } from '../utils/setTimeOutPromise';
 
 async function loadWasm(): Promise<void> {
-  console.log('Loading wasm...');
-  await setTimeOutPromise(1000); // fake a big golang bundle
   const goWasm = new window.Go();
   const result = await WebAssembly.instantiateStreaming(fetch('main.wasm'), goWasm.importObject);
-  console.log('Wasm loaded!');
   goWasm.run(result.instance);
-  console.log('Wasm ran!');
 }
 
 interface Props {}

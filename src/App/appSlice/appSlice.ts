@@ -1,20 +1,27 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ValidateFunction } from 'ajv';
 
 import type { RootState } from '../../redux/store';
 import { LocalStorageKey, LocalStorageService } from '../services/LocalStorageService';
 import { getValidationResult } from './getValidationResult';
 
 export type YamlSchema = string;
-export type ObjSchema = object;
 export type YamlInput = string;
-export type ObjInput = object;
 export enum ErrorType {
   yamlSchemaToObj,
   objToJsonSchema,
   yamlInputToObj,
   test,
 }
+
+export type GolangTestError = {
+  description: string;
+  context: string;
+};
+export type GolangResult = {
+  valid: boolean;
+  errors: GolangTestError[] | null;
+  err: string;
+};
 
 type ValidationResultSuccess = {
   isSuccess: true;
@@ -33,7 +40,7 @@ type ValidationResultTestFailure = {
   error: {
     errorType: ErrorType.test;
     errorTypeMessage: string;
-    errors: ValidateFunction['errors'];
+    errors: GolangTestError[];
   };
 };
 

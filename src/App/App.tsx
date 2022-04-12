@@ -10,7 +10,6 @@ import { YamlEditor } from './YamlEditor';
 interface Props {}
 
 export function App(props: Props) {
-  console.log('loaded app');
   const classes = useClasses(props);
   const dispatch = useAppDispatch();
   const { yamlSchema, yamlInput } = useAppSelector(selectAppSlice);
