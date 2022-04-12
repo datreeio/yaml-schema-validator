@@ -3,6 +3,7 @@
 For reference, here is a list of features & changes we might want to implement in the future:  
 (important features & quick wins marked in bold).
 
+- **fix CI build to compile wasm**
 - **implement error handling for browsers that don't support WebAssembly**
 - **Allow the user to choose the json schema flavor (Javascript/Golang)**
 - **docs, README.md, CONTRIBUTING.md, GitHub about, GitHub repository image**
