@@ -1,18 +1,26 @@
-dist: trusty
-language: node_js
-node_js: '16'
-install:
-  - rm -rf /usr/local/go
-  - sudo apt-get install golang
-  - echo "this is the go version"
-  - go version
-  - cd ./wasm && go get && cd ..
-  - npm ci
-  - pyenv local 3.6
-  - pip install -U pip
-  - pip install --user awscli
-script:
-  - npm run build && npm run test
+jobs:
+  include:
+    - language: go
+      dist: trusty
+      go:
+        - "1.17"
+      before_script:
+        - cd ./wasm
+        - go version
+        - go get
+        - cd ..
+      script:
+        - npm run build:wasm
+    - language: node_js
+      dist: trusty
+      node_js: '16'
+      install:
+        - npm ci
+        - pyenv local 3.6
+        - pip install -U pip
+        - pip install --user awscli
+      script:
+        - npm run build:ts && npm run test
 deploy: # on merge to main
   # deploy to production s3 bucket
   - provider: s3
