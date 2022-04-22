@@ -7,11 +7,11 @@ jobs:
       env:
         - GOOS=js
         - GOARCH=wasm
-      before_script:
-        - cd ./wasm
-        - go version
-        - go get
-        - cd ..
+#      before_script:
+#        - cd ./wasm
+#        - go version
+#        - go get
+#        - cd ..
       script:
         - npm run build:wasm
     - language: node_js
