@@ -1,11 +1,11 @@
 dist: trusty
 sudo: false
-language: go
+language: node_js
 node_js: '16'
 go:
   - "1.17"
 install:
-  - go get
+  - cd ./wasm && go get && cd ..
   - npm ci
   - pyenv local 3.6
   - pip install -U pip
