@@ -1,9 +1,8 @@
 dist: trusty
 language: node_js
 node_js: '16'
-go:
-  - "1.17"
 install:
+  - rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz
   - sudo apt-get install golang
   - echo "this is the go version"
   - go version
