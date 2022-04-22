@@ -1,8 +1,9 @@
 dist: trusty
 sudo: false
-language: node_js
+language: go
 node_js: '16'
-go: "1.17"
+go:
+  - "1.17"
 install:
   - go get
   - npm ci
