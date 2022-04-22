@@ -6,7 +6,7 @@ import { CircularProgress } from '@material-ui/core/';
 import React, { useEffect } from 'react';
 
 import { createUseClasses } from '../utils/createUseClasses';
-// import { setTimeOutPromise } from '../utils/setTimeOutPromise';
+// import { setTimeOutPromise } from '../utils/setTimeOutPromise';aa
 
 async function loadWasm(): Promise<void> {
   const goWasm = new window.Go();

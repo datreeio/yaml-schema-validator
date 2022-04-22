@@ -10,7 +10,6 @@
     "url": "https://github.com/datreeio/yaml-schema-validator.git"
   },
   "dependencies": {
-    "immer": "^9.0.7",
     "@emotion/css": "^11.5.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
@@ -18,13 +17,11 @@
     "ajv": "^8.8.2",
     "codemirror": "^5.64.0",
     "js-yaml": "^4.1.0",
-    "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-codemirror2": "^7.2.1",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
-    "typescript": "^4.5.2",
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {
@@ -43,14 +40,19 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "react-app-rewired": "^2.1.8"
+    "react-app-rewired": "^2.1.8",
+    "concurrently": "^7.1.0",
+    "watch": "^1.0.2",
+    "prettier": "^2.4.1",
+    "typescript": "^4.5.2"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "prebuild": "npm run build:wasm",
-    "build": "react-app-rewired build",
-    "build:staging": "env-cmd -f .env.staging npm run build",
-    "build:wasm": "cd wasm && GOOS=js GOARCH=wasm go build -o ../public/main.wasm && cd ..",
+    "start": "concurrently \"npm run watch:ts\" \"npm run watch:wasm\"",
+    "watch:ts": "react-app-rewired start",
+    "watch:wasm": "watch \"npm run build:wasm\" ./wasm",
+    "build": "npm run build:wasm && npm run build:ts",
+    "build:ts": "react-app-rewired build",
+    "build:wasm": "cd wasm && GOOS=js GOARCH=wasm go build -o ../public/main.wasm && cd .. && echo \"\\033[0;32mcompiled wasm successfully!\\033[0m\"",
     "test": "react-app-rewired test --watchAll=false",
     "test:watch": "react-app-rewired test",
     "eject": "react-scripts eject",
