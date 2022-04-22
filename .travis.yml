@@ -1,11 +1,10 @@
 dist: trusty
-sudo: false
 language: node_js
 node_js: '16'
 go:
   - "1.17"
 install:
-  - apt-get install golang
+  - sudo apt-get install golang
   - echo "this is the go version"
   - go version
   - cd ./wasm && go get && cd ..
