@@ -4,6 +4,9 @@ jobs:
       dist: trusty
       go:
         - "1.17"
+      env:
+        - GOOS=js
+        - GOARCH=wasm
       before_script:
         - cd ./wasm
         - go version
