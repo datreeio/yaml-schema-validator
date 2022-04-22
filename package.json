@@ -1,13 +1,70 @@
 {
   "name": "yaml-schema-validator",
   "version": "0.1.0",
-  "author": "datree.io",
-  "description": "yaml schema validator online",
-  "license": "Apache-2.0",
   "private": false,
+  "description": "yaml schema validator online",
   "repository": {
     "type": "git",
     "url": "https://github.com/datreeio/yaml-schema-validator.git"
+  },
+  "license": "Apache-2.0",
+  "author": "datree.io",
+  "scripts": {
+    "start": "concurrently \"npm run watch:ts\" \"npm run watch:wasm\"",
+    "watch:ts": "react-app-rewired start",
+    "watch:wasm": "watch \"npm run build:wasm\" ./wasm",
+    "build": "npm run build:wasm && npm run build:ts",
+    "build:ts": "react-app-rewired build",
+    "build:wasm": "cd wasm && GOOS=js GOARCH=wasm go build -o ../public/main.wasm && cd .. && echo \"\\033[0;32mcompiled wasm successfully!\\033[0m\"",
+    "test": "react-app-rewired test --watchAll=false",
+    "test:watch": "react-app-rewired test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "prettier": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
+    "fix": "npm run prettier && npm run lint:fix"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "plugins": [
+      "simple-import-sort"
+    ],
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "max-len": "off",
+      "prettier/prettier": [
+        "warn",
+        {
+          "singleQuote": true
+        }
+      ],
+      "simple-import-sort/exports": "warn",
+      "simple-import-sort/imports": "warn"
+    },
+    "ignorePatterns": [
+      "build/*"
+    ]
   },
   "dependencies": {
     "@emotion/css": "^11.5.0",
@@ -36,72 +93,15 @@
     "@types/node": "^12.20.37",
     "@types/react": "^17.0.36",
     "@types/react-dom": "^17.0.11",
+    "concurrently": "^7.1.0",
     "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "react-app-rewired": "^2.1.8",
-    "concurrently": "^7.1.0",
-    "watch": "^1.0.2",
     "prettier": "^2.4.1",
-    "typescript": "^4.5.2"
-  },
-  "scripts": {
-    "start": "concurrently \"npm run watch:ts\" \"npm run watch:wasm\"",
-    "watch:ts": "react-app-rewired start",
-    "watch:wasm": "watch \"npm run build:wasm\" ./wasm",
-    "build": "npm run build:wasm && npm run build:ts",
-    "build:ts": "react-app-rewired build",
-    "build:wasm": "cd wasm && GOOS=js GOARCH=wasm go build -o ../public/main.wasm && cd .. && echo \"\\033[0;32mcompiled wasm successfully!\\033[0m\"",
-    "test": "react-app-rewired test --watchAll=false",
-    "test:watch": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "prettier": "prettier --write .",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
-    "fix": "npm run prettier && npm run lint:fix"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:prettier/recommended"
-    ],
-    "plugins": [
-      "simple-import-sort"
-    ],
-    "ignorePatterns": [
-      "build/*"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "warn",
-        {
-          "singleQuote": true
-        }
-      ],
-      "max-len": "off",
-      "simple-import-sort/imports": "warn",
-      "simple-import-sort/exports": "warn"
-    }
-  },
-  "prettier": {
-    "trailingComma": "all",
-    "printWidth": 120,
-    "singleQuote": true
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-app-rewired": "^2.1.8",
+    "typescript": "^4.5.2",
+    "watch": "^1.0.2"
   },
   "config-overrides-path": "config-overrides.ts"
 }
