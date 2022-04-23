@@ -17,20 +17,20 @@ jobs:
       script:
         - npm run build
         - ls ./public -a
-#    - language: node_js
-#      stage: build-js
-#      dist: trusty
-#      node_js: '16'
-#      install:
-#        - npm ci
+    - language: node_js
+      stage: build-js
+      dist: trusty
+      node_js: '16'
+      install:
+        - npm ci
 #        - pyenv local 3.6
 #        - pip install -U pip
 #        - pip install --user awscli
-#      script:
+      script:
 #        - sleep 10
-#        - ls ./public -a
-#        - npm run build:ts && npm run test
-#        - ls ./build -a
+        - ls ./public -a
+        - npm run build && npm run test
+        - ls ./build -a
 deploy: # on merge to main
   # deploy to production s3 bucket
   - provider: s3
