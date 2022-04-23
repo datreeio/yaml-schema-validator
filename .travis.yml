@@ -19,18 +19,18 @@ jobs:
       script:
         - npm run build:wasm
 #        - ls ./public -a
-    - language: node_js
-#      stage: build-js
-      dist: trusty
-      node_js: '16'
-      install:
-        - npm ci
-      script:
-#        - sleep 10
-#        - go version
-#        - ls ./public -a
-        - npm run build:ts && npm run test
-#        - ls ./build -a
+#    - language: node_js
+##      stage: build-js
+#      dist: trusty
+#      node_js: '16'
+#      install:
+#        - npm ci
+#      script:
+##        - sleep 10
+##        - go version
+##        - ls ./public -a
+#        - npm run build:ts && npm run test
+##        - ls ./build -a
 deploy: # on merge to main
   # deploy to production s3 bucket
   - provider: s3
