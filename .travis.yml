@@ -7,23 +7,30 @@ jobs:
       before_install:
         - export GOOS=js
         - export GOARCH=wasm
-      script:
-        - npm run build:wasm
-        - ls ./public -a
-    - language: node_js
-      stage: build-js
-      dist: trusty
-      node_js: '16'
       install:
-        - npm ci
-        - pyenv local 3.6
-        - pip install -U pip
-        - pip install --user awscli
+        - . $HOME/.nvm/nvm.sh
+        - nvm install stable
+        - nvm use stable
+        - npm --version
+        - node --version
+        - npm install
       script:
-        - sleep 10
+        - npm run build
         - ls ./public -a
-        - npm run build:ts && npm run test
-        - ls ./build -a
+#    - language: node_js
+#      stage: build-js
+#      dist: trusty
+#      node_js: '16'
+#      install:
+#        - npm ci
+#        - pyenv local 3.6
+#        - pip install -U pip
+#        - pip install --user awscli
+#      script:
+#        - sleep 10
+#        - ls ./public -a
+#        - npm run build:ts && npm run test
+#        - ls ./build -a
 deploy: # on merge to main
   # deploy to production s3 bucket
   - provider: s3
