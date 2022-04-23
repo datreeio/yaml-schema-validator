@@ -6,6 +6,9 @@ before_install:
   - export GOOS=js
   - export GOARCH=wasm
   - go version
+  - rm -r /usr/local/go
+  - cat /etc/profile
+  - go version
 #  - install go
 install:
 #  - go get
