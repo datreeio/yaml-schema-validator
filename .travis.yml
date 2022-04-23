@@ -1,19 +1,20 @@
-language: node_js
 dist: trusty
+sudo: false
+language: node_js
 node_js: '16'
 before_install:
   - export GOOS=js
   - export GOARCH=wasm
   - go version
 #  - install go
-  install:
-#    - go get
-    - npm ci
-    - pyenv local 3.6
-    - pip install -U pip
-    - pip install --user awscli
-  script:
-    - npm run build && npm run test
+install:
+#  - go get
+  - npm ci
+  - pyenv local 3.6
+  - pip install -U pip
+  - pip install --user awscli
+script:
+  - npm run build && npm run test
 deploy: # on merge to main
   # deploy to production s3 bucket
   - provider: s3
