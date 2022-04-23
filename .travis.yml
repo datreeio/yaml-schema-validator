@@ -1,6 +1,7 @@
 jobs:
   include:
     - language: go
+      stage: build-wasm
       dist: trusty
       go: "1.17"
       before_install:
@@ -8,8 +9,9 @@ jobs:
         - export GOARCH=wasm
       script:
         - npm run build:wasm
-        - ls ./build -a
+        - ls ./public -a
     - language: node_js
+      stage: build-js
       dist: trusty
       node_js: '16'
       install:
@@ -18,7 +20,8 @@ jobs:
         - pip install -U pip
         - pip install --user awscli
       script:
-        - sleep 120
+        - sleep 10
+        - ls ./public -a
         - npm run build:ts && npm run test
         - ls ./build -a
 deploy: # on merge to main
