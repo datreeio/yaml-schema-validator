@@ -14,7 +14,6 @@ jobs:
 #      install:
 #        - . $HOME/.nvm/nvm.sh
 #        - nvm install stable
-#        - npm --version
 #        - node --version
 #        - npm install
       script:
