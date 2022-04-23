@@ -9,8 +9,8 @@ jobs:
         - export GOARCH=wasm
       install:
         - . $HOME/.nvm/nvm.sh
-        - nvm use --delete-prefix v18.0.0
         - nvm install stable
+        - nvm use --delete-prefix v18.0.0
         - nvm use stable
         - npm --version
         - node --version
