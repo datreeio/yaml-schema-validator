@@ -24,6 +24,3 @@ yarn-error.log*
 
 # more
 .idea
-
-# wasm
-public/main.wasm
