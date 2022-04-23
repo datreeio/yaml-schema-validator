@@ -2,21 +2,10 @@ jobs:
   include:
     - language: go
       dist: trusty
-      go:
-        - "1.17"
-#      env:
-#        - GOOS=js
-#        - GOARCH=wasm
+      go: "1.17"
       before_install:
         - export GOOS=js
         - export GOARCH=wasm
-        - echo $GOOS
-        - echo $GOARCH
-      #      before_script:
-#        - cd ./wasm
-#        - go version
-#        - go get
-#        - cd ..
       script:
         - npm run build:wasm
     - language: node_js
@@ -29,6 +18,7 @@ jobs:
         - pip install --user awscli
       script:
         - npm run build:ts && npm run test
+        - ls ./build -a
 deploy: # on merge to main
   # deploy to production s3 bucket
   - provider: s3
