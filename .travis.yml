@@ -14,7 +14,6 @@ jobs:
 #      install:
 #        - . $HOME/.nvm/nvm.sh
 #        - nvm install stable
-#        - nvm use stable --delete-prefix v18.0.0
 #        - npm --version
 #        - node --version
 #        - npm install
