@@ -8,6 +8,7 @@ jobs:
         - export GOOS=js
         - export GOARCH=wasm
       install:
+        - nvm use --delete-prefix v18.0.0
         - . $HOME/.nvm/nvm.sh
         - nvm install stable
         - nvm use stable
