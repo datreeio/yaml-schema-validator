@@ -1,7 +1,7 @@
 jobs:
   include:
     - language: go
-      stage: build-wasm
+#      stage: build-wasm
       dist: trusty
       go: "1.17"
       before_install:
@@ -15,10 +15,10 @@ jobs:
         - node --version
 #        - npm install
       script:
-        - npm run build
+#        - npm run build
         - ls ./public -a
     - language: node_js
-      stage: build-js
+#      stage: build-js
       dist: trusty
       node_js: '16'
       install:
@@ -28,6 +28,7 @@ jobs:
 #        - pip install --user awscli
       script:
 #        - sleep 10
+        - go version
         - ls ./public -a
         - npm run build && npm run test
         - ls ./build -a
