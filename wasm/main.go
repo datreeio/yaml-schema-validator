@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"syscall/js"
 )
 
@@ -13,7 +12,6 @@ type myResult struct {
 
 func validate() js.Func {
 	validator := New()
-fmt.Println("hesdfsdbbbaaaaad")
 	return js.FuncOf(func(this js.Value, args []js.Value) (returnValue interface{}) {
 		defer func() {
 			if r := recover(); r != nil {
