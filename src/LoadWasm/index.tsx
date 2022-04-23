@@ -10,7 +10,7 @@ import { createUseClasses } from '../utils/createUseClasses';
 async function loadWasm(): Promise<void> {
   const goWasm = new window.Go();
   const result = await WebAssembly.instantiateStreaming(fetch('main.wasm'), goWasm.importObject);
-  await goWasm.run(result.instance);
+  goWasm.run(result.instance);
 }
 
 interface Props {}

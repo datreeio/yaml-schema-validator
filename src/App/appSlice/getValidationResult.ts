@@ -35,7 +35,6 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput
 
   // golang validation
   const result = window.validate(yamlSchema, yamlInput);
-  console.log(result);
   const golangResult: GolangResult = JSON.parse(result);
 
   if (golangResult.valid) {
