@@ -4,10 +4,15 @@ jobs:
       dist: trusty
       go:
         - "1.17"
-      env:
-        - GOOS=js
-        - GOARCH=wasm
-#      before_script:
+#      env:
+#        - GOOS=js
+#        - GOARCH=wasm
+      before_install:
+        - export GOOS=js
+        - export GOARCH=wasm
+        - echo $GOOS
+        - echo $GOARCH
+      #      before_script:
 #        - cd ./wasm
 #        - go version
 #        - go get
