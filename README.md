@@ -3,7 +3,7 @@
 For reference, here is a list of features & changes we might want to implement in the future:  
 (important features & quick wins marked in bold).
 
-- **include build:wasm in CI pipeline and put /public/main.wasm in .gitignore**
+- **include build:wasm in CI/CD pipeline and put /public/main.wasm in .gitignore**
 - **docs, README.md, CONTRIBUTING.md, GitHub about, GitHub repository image**
 - **favicon & icons in general**
 - **general web page design**

@@ -6,12 +6,11 @@ import { CircularProgress } from '@material-ui/core/';
 import React, { useEffect } from 'react';
 
 import { createUseClasses } from '../utils/createUseClasses';
-// import { setTimeOutPromise } from '../utils/setTimeOutPromise';aa
 
 async function loadWasm(): Promise<void> {
   const goWasm = new window.Go();
   const result = await WebAssembly.instantiateStreaming(fetch('main.wasm'), goWasm.importObject);
-  goWasm.run(result.instance);
+  await goWasm.run(result.instance);
 }
 
 interface Props {}
