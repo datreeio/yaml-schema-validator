@@ -1,10 +1,10 @@
 import { css } from '@emotion/css';
-import { ValidateFunction } from 'ajv';
 
 import { createUseClasses } from '../../utils/createUseClasses';
+import { GolangTestError } from '../appSlice';
 
 interface Props {
-  errors: ValidateFunction['errors'];
+  errors: GolangTestError[];
 }
 
 export function TestErrors(props: Props) {
@@ -22,15 +22,11 @@ export function TestErrors(props: Props) {
           <div className={classes.testError} key={JSON.stringify(e)}>
             <div className={classes.testErrorProperty}>
               <div className={classes.testErrorFieldName}>Message:</div>
-              <div>{e.message}</div>
-            </div>
-            <div className={classes.testErrorProperty}>
-              <div className={classes.testErrorFieldName}>Schema path:</div>
-              <div>{e.schemaPath}</div>
+              <div>{e.description}</div>
             </div>
             <div className={classes.testErrorProperty}>
               <div className={classes.testErrorFieldName}>Instance path:</div>
-              <div>{e.instancePath}</div>
+              <div>{e.context}</div>
             </div>
           </div>
         ))}

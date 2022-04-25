@@ -1,17 +1,15 @@
-import { ValidateFunction } from 'ajv';
 import yaml from 'js-yaml';
 import parserYaml from 'prettier/parser-yaml';
 import prettier from 'prettier/standalone';
 
 import { isObject } from '../../utils/functions';
 import { getErrorMessage } from '../../utils/getErrorMessage';
-import { compileJsonSchema } from '../services/compileJsonSchema';
-import { ErrorType, ObjInput, ObjSchema, ValidationResult, YamlInput, YamlSchema } from './index';
+import { ErrorType, GolangResult, ValidationResult, YamlInput, YamlSchema } from './index';
 
 export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput): ValidationResult {
-  let jsonSchemaObj: ObjSchema;
+  // validate that input & schema are valid yaml
   try {
-    jsonSchemaObj = yamlToObject(yamlSchema);
+    yamlToObject(yamlSchema);
   } catch (error) {
     return {
       isSuccess: false,
@@ -22,24 +20,8 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput
       },
     };
   }
-
-  let validate: ValidateFunction;
   try {
-    validate = compileJsonSchema(jsonSchemaObj);
-  } catch (error) {
-    return {
-      isSuccess: false,
-      error: {
-        errorType: ErrorType.objToJsonSchema,
-        errorTypeMessage: 'YAML schema: invalid yaml schema',
-        errorMessage: getErrorMessage(error),
-      },
-    };
-  }
-
-  let inputObject: ObjInput;
-  try {
-    inputObject = yamlToObject(yamlInput);
+    yamlToObject(yamlInput);
   } catch (error) {
     return {
       isSuccess: false,
@@ -51,18 +33,37 @@ export function getValidationResult(yamlSchema: YamlSchema, yamlInput: YamlInput
     };
   }
 
-  if (validate(inputObject)) {
-    return { isSuccess: true, successMessage: 'Input PASSES validation against schema' };
-  } else {
+  // golang validation
+  const result = window.validate(yamlSchema, yamlInput);
+  const golangResult: GolangResult = JSON.parse(result);
+
+  if (golangResult.valid) {
+    return {
+      isSuccess: true,
+      successMessage: 'Input PASSES validation against schema',
+    };
+  }
+  if (golangResult.err) {
+    return {
+      isSuccess: false,
+      error: {
+        errorType: ErrorType.objToJsonSchema,
+        errorTypeMessage: 'YAML schema: invalid yaml schema',
+        errorMessage: golangResult.err,
+      },
+    };
+  }
+  if (golangResult.errors) {
     return {
       isSuccess: false,
       error: {
         errorType: ErrorType.test,
-        errors: validate.errors,
         errorTypeMessage: 'Input does NOT pass validation against schema',
+        errors: golangResult.errors,
       },
     };
   }
+  throw new Error(`unexpected golangResult${JSON.stringify(golangResult)}`);
 }
 
 function yamlToObject(yamlInput: string): object {

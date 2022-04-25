@@ -5,14 +5,17 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from './App/App';
+import { LoadWasm } from './LoadWasm';
 import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <LoadWasm>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </LoadWasm>
   </React.StrictMode>,
   document.getElementById('root'),
 );
